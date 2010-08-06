@@ -1,0 +1,18 @@
+
+select, option {font-size:16px;width:275px;overflow:hidden;}
+
+select{position:absolute;top:105px;left:415px;z-index:1;background-color:#DDBBDD;}
+
+#heading2{position:absolute;top:60px;left:425px;z-index:1;}
+
+#datebook{position:absolute;top:50px;left:50px;}
+
+#day{position:absolute;font-size:30px;top:100px;left:45px;z-index:1;}
+
+li{list-style-type:none;}
+
+#Cal {position:absolute; top:106px;Left:750px; width: 15% }
+th { background-color: #DDBBDD; border: 1px solid #ccc; padding: 5px; text-align: left }
+td { border: 1px solid #ccc; padding: 5px; width: 14.29% }
+
+

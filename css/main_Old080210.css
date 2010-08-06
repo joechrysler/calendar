@@ -1,0 +1,19 @@
+
+
+#timeLinks{width:275px;height:360px;overflow:auto;}
+
+li{list-style-type:none;}
+
+#timeLinks{position:absolute;top:95px;left:375px;z-index:1;}
+
+#heading2{position:absolute;top:60px;left:425px;z-index:1;}
+
+#datebook{position:absolute;top:50px;left:50px;z-index:0;}
+
+#dateLinks{position:absolute;font-size:30px;top:100px;left:45px;z-index:1;}
+
+#Cal {position:absolute; top:106px;Left:750px; width:50% }
+th { background-color: #DDBBDD; border: 1px solid #ccc; padding: 5px; text-align: left }
+td { border: 1px solid #ccc; padding: 5px; width: 14.29% }
+
+#buttons{position:absolute; top:300px; Left:106px; width:50%}

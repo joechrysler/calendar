@@ -1,0 +1,221 @@
+<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Active Calendar Project :: Changelog</title>
+<style type="text/css">
+<!--
+A {text-decoration: underline; color: #003F80;	text-align: center; font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 14px; }
+A:Hover {text-decoration: none; color: #3163CE; }
+.normal {font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 11px; text-align: justify; font-weight: bold;}
+.small { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 10px}
+.header { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 16px; font-weight: bold;}
+.code {  font-family: "Courier New", Courier, mono; font-size: 12px; font-weight: bold; color: #000099; text-align: left}
+-->
+</style>
+</head>
+<body bgcolor="#ffffff">
+<p class="normal"><span class="header">Active Calendar Project :: Changelog</span>
+</p>
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.2.0
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">23 Feb 2006</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A subclass activeCalendarWeek has been added to the project. The class can generate week calendars (one or multiple rows) according to the date or the week number of the year passed to the class using two public methods showWeeks() and showWeeksByID(). The structure of the download package has been updated and an example has been added to demonstrate how the Active Calendar can be used as a popup date selector in a form.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.1.1
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">3 Feb 2006</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The public method showYear() has been modified to accept a second optional parameter, that specifies the starting month in the year calendar. The example scripts in the download package have been updated.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.1.0
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">29 Jan 2006</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A new public method enableWeekNum() has been added. A week number column can optionally be created in the month and year calendars. The week numbers can be optionally linked. This method can be used only if php version > 4.1.0 and is not supported by the ADOdb Date Library. A new public method setFirstWeekDay() has also been added to specify the first day of the week (Sunday or Monday). The structure of the download package has been updated.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0.6
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">12 Oct 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Code cleanup</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The private method mkUrl() has been modified. The generated link structure will not be affected by non-boolean values which evaluate to FALSE, such as 0 or "".</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0.5
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">31 Jul 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The public method showMonth() has been modified. The class can now optionally generate and display the calendar days, that do not belong to the current month.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0.4
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">2 Mar 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The class now supports different GMT zones and not only the server local time for the current date calculation. The method setEventContent() has been also modified to optionally create a different HTML class name (layout) for each event content.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0.3
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">25 Feb 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor bugfixes</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A bug that prevented the generation of multiple event contents with the same content URL on the same date was fixed.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0.2
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">15 Feb 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor bugfixes</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A bug that generated a warning when setting an event without a link on Windows servers was fixed.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0.1
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">30 Jan 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The class can now accept different url's for the day and navigation links.  A new example script has been added to demonstrate how to set events using an XML file.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 1.0
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">20 Jan 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A new public method setEventContent() has been added. The class can now display contents within the day passed by the method. The methods enableMonthNav() and enableYearNav() have been modified to optionally set the calendar navigation controls. The method enableDatePicker() has been also modified to optionally set the value of the generated submit button. The method showYear() accepts now a parameter to set the number of months in each row of the year calendar. The generated HTML class names (CSS layout) can be set in the configuration, to avoid conficts with existing names of your projects. Finally, a new example script has been added to demonstrate how to set events using a flat file.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.9.2
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">11 Jan 2005</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">Two new public methods have been added. The method setMonthNames() will generate different names for the calendar months and the method setDayNames() will generate different names for the calendar week days, than the ones set in the configuration.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.9.1
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">09 Dec 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor bugfixes</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A bug that prevented the generated HTML code from being 100% XHTML valid was fixed.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.9
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">20 Nov 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">This release optionally supports the ADOdb Date Library and can generate calendars from 100 A.D. to 3000 A.D. and later. The class supports more complex URLs and the structure of all generated links (day and navigation) can be modified in a single internal method, mkUrl().</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.8.3
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">06 Nov 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The method enableDayLinks(), which generates linkable calendar dates, has been modified. The class can now optionally create day links which call a Javascript function, set by enableDayLinks(), instead of page URLs. An example script has been added in the package and the documentation files have been updated.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.8.2
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">31 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Minor feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The method setEvent(), which generates event dates, has been modified. The class can now create a different link on each date, set by setEvent().</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.8.1
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">25 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Documentation</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A new example script was added in this version, to demonstrate how event dates could be generated in the Active Calendar (CSS layout), using records from a MySQL database.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.8
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">19 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A new method setEvent() has been added to support "calendar events". The class can now create a different HTML class on each date set by the method setEvent(), so that the layout of each "event date" can be configured using CSS. Some additional code cleanup has been made, and the size of the class has been reduced.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.7.3
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">14 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The class now can optionally create HTML classes on each Sunday and/or Saturday (CSS layout configuration). The number of months in each row in the yearview can be defined, so that an 1 to 12 column year calendar can be generated. A year picker can be generated in the yearview, and the month navigation controls will be displayed only in the monthview.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.7.2
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">11 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Code cleanup</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">The class now generates HTML tags classes instead of ids for the layout configuration (valid HTML). Some code cleanups to reduce the size of the class have been made.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.7.1
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">08 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major feature enhancements</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A new function to generate a date picker control has been added. The internal structure of the class has been totally updated.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.6.3
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">05 Oct 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Major bugfixes</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A bug has been fixed: the "today" HTML tag id will not be generated twice.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.6.2
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">29 Sep 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Documentation</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A greek documentation file has been added.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.6.1
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">24 Sep 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Documentation</td></tr>
+<tr><td class="normal">Changes: </td><td class="code">A german documentation file has been added.</td></tr>
+</table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code" colspan="2">
+version 0.6
+</td></tr>
+<tr><td class="normal" width="10%">Date:</td><td class="code">19 Sep 2004</td></tr>
+<tr><td class="normal">Focus: </td><td class="code">Initial stable version</td></tr>
+</table>
+<br />
+<hr></hr>
+<table width="100%" border="0" bgcolor="#ffffff">
+<tr>
+<td class="small">
+(c) 2004 - 2006 Giorgos Tsiledakis, Crete Greece
+</td>
+</tr>
+</table>
+<hr></hr>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<html>
+<head>
+<title>Active Calendar Project Documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style type="text/css">
+<!--
+a {text-decoration: underline; color: #003F80;	text-align: center; font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 12px; }
+a:hover {text-decoration: none; color: #3163CE; }
+.normal {font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 12px; text-align: justify; font-weight: normal;}
+.small { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 10px}
+.header { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 16px; font-weight: bold;}
+.subheader { font-family: Helvetica, Tahoma, Arial; font-size: 14px; font-weight: bold; font-style: italic; text-decoration: underline;}
+.code {  font-family: "Courier New", Courier, mono; font-size: 12px; font-weight: bold; color: #000099; text-align: left}
+.mycss {  font-family: "Courier New", Courier, mono; font-size: 11px; font-weight: normal; color: #000099; text-align: left}
+-->
+</style>
+</head>
+<body bgcolor="#ffffff">
+<p class="normal"><span class="header">Active Calendar Project v1.2.0 Documentation</span>
+</p>
+<p class="subheader">Contents</p>
+<ul class="normal">
+<table width="100%" border="0" bgcolor="#ffffff">
+<tr><td><a href="#about">About this project</a></td></tr>
+<tr><td><a href="#use">How to use the class(es)</a>
+<ul>
+<li><a href="#methods">activeCalendar() class methods</a></li>
+<li><a href="#methodsweek">activeCalendarWeek() subclass methods</a></li>
+<li><a href="#layout">Calendar layout</a></li>
+</ul>
+</td></tr>
+<tr><td><a href="#quick">Quick installation</a></td></tr>
+</table>
+</ul>
+<p class="subheader"><a name="about"></a>About the Active Calendar Project</p>
+<p class="normal">Active Calendar is a set of a main PHP class and subclass(es), that generate calendars (year, month or week view) as a HTML Table (XHTML-Valid).</p>
+<ul class="normal">
+The calendars created by this class:
+<li>can be static (without any links)</li>
+<li>can optionally have navigation controls</li>
+<li>can optionally have a date picker control</li>
+<li>can optionally have linkable days (url or javascript)</li>
+<li>can optionally have 'event days' with 'event links' and own layout</li>
+<li>can optionally have 'event content' with 'links' and own layout</li>
+<li>can optionally have a week number column with 'links' and own layout</li>
+<li>support different GMT zones for the current date calculation</li>
+<li>support month and day names, depending on your language</li>
+<li>can be configured using CSS</li>
+<li>do not require Javascript to be displayed or navigated (server side generation)</li>
+<li>can be generated with just 2-3 lines of code</li>
+</ul>
+<p class="normal">Active Calendar is based on the <span class="code">PHP native date functions</span> (default) and supports optionally the <a href="http://phplens.com/phpeverywhere/adodb_date_library" class="code" target="_blank">ADOdb Date Library</a>.</p>
+<ul class="normal">
+Supported dates (on systems using a 32-bit signed integer Unix time_t):
+<li>Using PHP native date functions: 1902 - 2037 (UNIX) and 1971 - 2037 (Windows)</li>
+<li>Using ADOdb Date Library: 100 - 3000 and later <span class="small">[ limited by the computation time of adodb_mktime() ]</span> on both UNIX and Windows. To use the ADOdb Date Library just include it in your scripts. The Active Calendar class will use the library functions automatically.</li>
+</ul>
+<p class="subheader"><a name="use"></a>How to use the Active Calendar</p>
+<p class="normal"><a name="methods"></a><b>activeCalendar()</b> class methods overview (main class):
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal = new activeCalendar([$year,$month,$day,$gmt_zone]);
+</td></tr>
+<tr><td class="normal">
+Create first a new object of the class. The parameters $year, $month and $day are optional. If these parameters are not set, the current year, month and day will be passed to the program. The parameter $year should have the form "yyyy" e.g "2005" or "1996", the parameter $month should have the form "m" e.g "1" for January or "10" for October and the parameter $day should have the form "d" e.g "4" for the 4th month day or "24" for the 24th month day. So for the date e.g 7th January 2005 please set $cal = new activeCalendar("2005","1","7"). The parameter $gmt_zone is optional as well. Use this parameter to set the GMT (Greenwich Mean Time) zone for the current date calculation (e.g 9 for Osaka Japan, 2 for Athens Greece, - 5 for New York USA). If $gmt_zone is not set, the server local time will be used.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableMonthNav([$link,$arrowBack,$arrowForw]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the generated calendar to have month navigation controls (e.g "previous month" and "next month"). The parameter $link is optional. You can use this parameter to set the url for the calendar links (e.g "mycalendar.php" or "mycalendar.php?mode=4&amp;item=test", if you need more complex urls). You should modify the private method mkUrl(), if you want to change the general structure of the generated links. The parameters $arrowBack and $arrowForw are optional as well: they set other month navigation controls, than the ones set in the configuration (an image link can be set too).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableYearNav([$link,$arrowBack,$arrowForw]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the generated calendar to have year navigation controls (e.g "previous year" and "next year"). The parameter $link is optional. You can use this parameter to set the url for the calendar links (e.g "mycalendar.php" or "mycalendar.php?mode=4&amp;item=test", if you need more complex urls). You should modify the private method mkUrl(), if you want to change the general structure of the generated links. The parameters $arrowBack and $arrowForw are optional as well: they set other year navigation controls, than the ones set in the configuration (an image link can be set too).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableDatePicker([$startYear,$endYear,$link,$button]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the generated month calendar to have a date picker control. The parameters $startYear and $endYear define the range of the years, that can be selected (e.g $startYear=2000, $endYear=2010). This range is limited by the private class variables $startYear and $endYear. Please modify them according to your configuration. The parameter $link is optional. You can use this parameter to set the url for the calendar links (e.g "mycalendar.php" or "mycalendar.php?mode=4&amp;item=test", if you need more complex urls). You should modify the private method mkUrl(), if you want to change the general structure of the generated links. The parameter $button is optional as well: it sets some other value for the date picker submit button, than the one set in the configuration.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableDayLinks([$link,$javaScript]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the generated calendar to have linkable dates. The parameter $link is optional. You can use this parameter to set the url for the calendar links (e.g "mycalendar.php" or "mycalendar.php?mode=4&amp;item=test", if you need more complex urls). You should modify the private method mkUrl(), if you want to change the general structure of the generated links. The parameter $javaScript is optional as well. You can use this parameter to set a JavaScript function instead of an url for the calendar links. So if you set $cal->enableDayLinks(false,&quot;selectDate&quot;), this link will be created on e.g 27 May 2007: ..href=&quot;javascript:selectDate(2007,5,27)&quot;.. The content of the Javascript function 'selectDate' will not be created by the class. You should develop it according to your needs.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableWeekNum([$title,$link,$javaScript]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the generated calendar to contain a week number column. The optional parameter $title can be used to set the title of the generated column. The parameter $link is optional as weel. You can use this parameter to make the generated week numbers linkable and to set the url for the links (e.g "mycalendar.php" or "mycalendar.php?mode=4&amp;item=test", if you need more complex urls). You should modify the private method mkWeekNum(), if you want to change the general structure of the generated links. The parameter $javaScript is optional as well. You can use this parameter to set a JavaScript function instead of an url for the week number links. So if you set $cal->enableWeekNum(&quot;Week&quot;,false,&quot;selectWeek&quot;), this link will be created on e.g 23 May 2007 (21st week): ..href=&quot;javascript:selectWeek(2007,21)&quot;.. The content of the Javascript function 'selectWeek' will not be created by the class. You should develop it according to your needs.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setMonthNames($monthNamesArray);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the class generate different names for the calendar months, than the ones set in the configuration. The parameter $monthNamesArray must be an array of 12 month names starting with January.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setDayNames($dayNamesArray);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the class generate different names for the calendar weekdays, than the ones set in the configuration. The parameter $dayNamesArray must be an array of 7 day names starting with Sunday.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setFirstWeekDay($daynum);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want to set another first day of the week, than the one set in the configuration. The class currently supports only Sunday and Monday as starting week days. Set the parameter $daynum=0 for Sunday or $daynum=1 for Monday.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setEvent($year,$month,$day,[$id,$eventUrl]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the class to create an HTML td class=$id on the date specified by the parameters $year, $month, $day. You can configure every 'event date' in your CSS, so that it would have e.g a different background color. The parameter $id is optional. If you do not set an $id, a default HTML class='event' will be generated. The parameter $eventUrl is optional as well: If you set an $eventUrl, an event specific link (..href='$eventUrl'..) will be generated on the 'event date', even if the method $cal->enableDayLinks($link) was not called.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setEventContent($year,$month,$day,$content,[$contentUrl,$id]);
+</td></tr>
+<tr><td class="normal">
+Call this method, if you want the class to create a new HTML table within the date specified by the parameters $year, $month, $day. The parameter $content can be a string or an array. If $content is a string, then the new generated table will contain one row with the value of $content. If it is an array, the generated table will contain as many rows as the array length and each row will contain the value of each array item. The parameter $contentUrl is optional: If you set a $contentUrl, an event content specific link (..href='$contentUrl'..) will be generated in the 'event content' table row(s), even if the method $cal->enableDayLinks($link) was not called. The parameter $id is optional as well: if you set an $id, a HTML class='$id' will be generated for each event content (default: 'eventcontent').
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->showMonth([$showNoMonthDays]); 
+</td></tr>
+<tr><td class="normal">
+This method will generate the html string of the month calendar. You can display the calendar by "print $cal->showMonth()". This method calls several private class functions, that create each tr tag of the generated table. So if you would like to change the table structure, you could simply modifiy the order, that these private functions are called (mkMonthHead() must remain first and mkMonthFoot() must remain last though). The parameter $showNoMonthDays is optional: if it is set true, days that do not belong to the current month will be displayed in the calendar (default: false). Please note that these days will not contain any events or event contents!. 
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->showYear([$columns,$startMonth]);
+</td></tr>
+<tr><td class="normal">
+This method will generate the html string of the year calendar. You can display the calendar by "print $cal->showYear()". This method calls several private class functions, that create each tr tag of the generated table. So if you would like to change the table structure, you could simply modify the order, that these private functions are called (mkYearHead() must remain first and mkYearFoot() must remain last though). The parameter $columns is optional: it sets the number of the generated months in each row of the year calendar (default: 4). The parameter $startMonth is optional as well: it sets the starting month in the year calendar (default: January).
+</td></tr></table>
+</p>
+<p class="normal"><a name="methodsweek"></a><b>activeCalendarWeek()</b> class methods overview (subclass):
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal = new activeCalendarWeek([$year,$month,$day,$gmt_zone]);
+</td></tr>
+<tr><td class="normal">
+This is the constructor of the subclass. It accepts the same parameters as the constructor of the main class activeCalendar() and creates a new class object.
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableDayLinks([$link,$javaScript]);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->enableWeekNum([$title,$link,$javaScript]);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setMonthNames($monthNamesArray);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setDayNames($dayNamesArray);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setFirstWeekDay($daynum);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setEvent($year,$month,$day,[$id,$eventUrl]);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->setEventContent($year,$month,$day,$content,[$contentUrl,$id]);
+</td></tr>
+<tr><td class="normal">
+This method calls the same method of the parent class (see above).
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->showWeeks([$numberOfWeeks]);
+</td></tr>
+<tr><td class="normal">
+This method will generate the html string of the week calendar. You can display the calendar by "print $cal->showWeeks()". This method calls several private class functions, that create each tr tag of the generated table. The parameter $numberOfWeeks is optional: it sets the number of the generated week rows (default: 1). The week starts on the date set in the constructor method activeCalendarWeek().
+</td></tr></table>
+<br />
+<table width="100%" border="0"><tr><td bgcolor="#e9e9e9" class="code">
+$cal->showWeeksByID([$weekID,$numberOfWeeks]);
+</td></tr>
+<tr><td class="normal">
+This method will generate the html string of the week calendar. You can display the calendar by "print $cal->showWeeksByID()". This method calls several private class functions, that create each tr tag of the generated table. The parameter $weekID is optional: the week calendar starts with the week row, that has the same week number of the year as set in the $weekID (default: 1 = first week of the year). The parameter $numberOfWeeks is optional as well: it sets the number of the generated week rows (default: 1).
+</td></tr></table>
+</p>
+<p class="normal"><a name="layout"></a><b>Calendar layout</b>:
+<table width="100%" border="0" bgcolor="#ffffff" class="normal">
+<tr><td colspan="3">
+The layout of the generated calendar can be configured with CSS. The Active Calendar Class returns html tags with various classes, which can be used for the layout configuration. Here is a table with the classes of the html tags, generated by the Active Calendar Class and their configuration variables. To avoid conflicts with your existing CSS, the names of the generated classes can be changed in the Active Calendar class configuration.
+</td></tr>
+<tr><td><u>Configuration variable</u></td><td><u>HTML Class</u></td><td><u>HTML TAG</u></td></tr>
+<tr><td class="code">$cssYearTable</td><td>year</td><td>table tag: calendar year</td></tr>
+<tr><td class="code">$cssYearTitle</td><td>yearname</td><td>td tag: calendar year title</td></tr>
+<tr><td class="code">$cssYearNav</td><td>yearnavigation</td><td>td tag: calendar year navigation</td></tr>
+<tr><td class="code">$cssMonthTable</td><td>month</td><td>table tag: calendar month</td></tr>
+<tr><td class="code">$cssMonthTitle</td><td>monthname</td><td>td tag: calendar month title</td></tr>
+<tr><td class="code">$cssMonthNav</td><td>monthnavigation</td><td>td tag: calendar month navigation</td></tr>
+<tr><td class="code">$cssWeekDay</td><td>dayname</td><td>td tag: calendar weekdays</td></tr>
+<tr><td class="code">$cssWeekNumTitle</td><td>weeknumtitle</td><td>td tag: week number title</td></tr>
+<tr><td class="code">$cssWeekNum</td><td>weeknum</td><td>td tag: week number</td></tr>
+<tr><td class="code">$cssWeeksTable</td><td>week</td><td>table tag: calendar week (subclass activeCalendarWeek)</td></tr>
+<tr><td class="code">$cssMonthWeek</td><td>monthweek</td><td>td tag: month row in the week calendar (subclass activeCalendarWeek)</td></tr>
+<tr><td class="code">$cssPicker</td><td>datepicker</td><td>td tag: date picker</td></tr>
+<tr><td class="code">$cssPickerForm</td><td>datepickerform</td><td>form tag: date picker form</td></tr>
+<tr><td class="code">$cssPickerMonth</td><td>monthpicker</td><td>select tag: month picker</td></tr>
+<tr><td class="code">$cssPickerYear</td><td>yearpicker</td><td>select tag: year picker</td></tr>
+<tr><td class="code">$cssPickerButton</td><td>pickerbutton</td><td>input (submit) tag: date picker button</td></tr>
+<tr><td class="code">$cssMonthDay</td><td>monthday</td><td>td tag: days, that belong to the current month</td></tr>
+<tr><td class="code">$cssNoMonthDay</td><td>nomonthday</td><td>td tag: days, that do not belong to the current month</td></tr>
+<tr><td class="code">$cssToday</td><td>today</td><td>td tag: the current day</td></tr>
+<tr><td class="code">$cssSelecDay</td><td>selectedday</td><td>td tag: the selected day</td></tr>
+<tr><td class="code">$cssSunday</td><td>sunday</td><td>td tag: all Sundays</td></tr>
+<tr><td class="code">$cssSaturday</td><td>saturday</td><td>td tag: all Saturdays</td></tr>
+<tr><td class="code">$cssEvent</td><td>event</td><td>td tag: Event day set by setEvent(). Multiple classes can be generated (e.g 'meeting')</td></tr>
+<tr><td class="code">$cssPrefixSelecEvent</td><td>selected</td><td>td tag: Event day set by setEvent(), when it is selected. This prefix will be added to the event class name (e.g 'selectedevent'). Multiple classes (e.g 'selectedmeeting') can be generated</td></tr>
+<tr><td class="code">$cssPrefixTodayEvent</td><td>today</td><td>td tag: Event day set by setEvent(), when it is the current day. This prefix will be added to the event class name (e.g 'todayevent'). Multiple classes (e.g 'todaymeeting') can be generated</td></tr>
+<tr><td class="code">$cssEventContent</td><td>eventcontent</td><td>table tag : Event content set by setEventContent(). Multiple classes can be generated (e.g 'meetingcontent')</td></tr>
+</table>
+</p>
+<p class="subheader"><a name="quick"></a>Quick installation</p>
+<p class="normal">1. Edit the configuration section in Active Calendar Class file <span class="code">activecalendar.php</span>, if you want to change the default configuration.
+<span class="normal">
+The following public variables can be modified:
+<li><span class="code">********* Month names *********</span><br />
+<span class="small">[This is just the default configuration. You may set the month names by calling the method setMonthNames()]</span></li>
+<li><span class="code">var $jan</span> = "Name to display for January";</li>
+<li><span class="code">var $feb</span> = "Name to display for February";</li>
+<li><span class="code">var $mar</span> = "Name to display for March";</li>
+<li><span class="code">var $apr</span> = "Name to display for April";</li>
+<li><span class="code">var $may</span> = "Name to display for May";</li> 
+<li><span class="code">var $jun</span> = "Name to display for June";</li>
+<li><span class="code">var $jul</span> = "Name to display for July";</li> 
+<li><span class="code">var $aug</span> = "Name to display for August";</li>
+<li><span class="code">var $sep</span> = "Name to display for September";</li> 
+<li><span class="code">var $oct</span> = "Name to display for October";</li>
+<li><span class="code">var $nov</span> = "Name to display for November";</li> 
+<li><span class="code">var $dec</span> = "Name to display for December";</li>
+<li><span class="code">******** Weekday names ********</span><br />
+<span class="small">[This is just the default configuration. You may set the day names by calling the method setDayNames()]</span></li>
+<li><span class="code">var $sun</span> = "Name to display for Sunday";</li>
+<li><span class="code">var $mon</span> = "Name to display for Monday";</li>
+<li><span class="code">var $tue</span> = "Name to display for Tuesday";</li>
+<li><span class="code">var $wed</span> = "Name to display for Wednesday";</li>
+<li><span class="code">var $thu</span> = "Name to display for Thursday";</li>
+<li><span class="code">var $fri</span> = "Name to display for Friday";</li>
+<li><span class="code">var $sat</span> = "Name to display for Saturday";</li>
+<li><span class="code">****** Navigation controls ******</span><br />
+<span class="small">[This is just the default configuration. You may set the controls by calling the methods enableYearNav(), enableMonthNav() and enableDatePicker()]</span></li>
+<li><span class="code">var $yearNavBack</span> = "Previus year control (it could be an image link e.g.:&lt;img src=\&quot;leftarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $yearNavForw</span> = "Next year control (it could be an image link e.g.:&lt;img src=\&quot;rightarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $monthNavBack</span> = "Previus month control (it could be an image link e.g.:&lt;img src=\&quot;leftarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $monthNavForw</span> = "Next month control (it could be an image link e.g.:&lt;img src=\&quot;rightarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $selBtn</span> = "Date picker button value";</li>
+<li><span class="code">****** Day links variables ******</span></li>
+<li><span class="code">var $yearID</span> = "Name of the year GET VARIABLE for the links";</li>
+<li><span class="code">var $monthID</span> = "Name of the month GET VARIABLE for the links";</li>
+<li><span class="code">var $dayID</span> = "Name of the day GET VARIABLE for the links";</li>
+<li><span class="code">var $weekID</span> = "Name of the week number GET VARIABLE for the links";</li>
+<li><span class="code">******** Monthview display ********</span></li>
+<li><span class="code">var $monthYearDivider</span> = "Divider between month and year in the month`s title e.g '/'";</li>
+<li><span class="code">var $startOnSun</span> = "True: first day of week is Sunday, False: first day of week is Monday";</li>
+<li><span class="code">var $crSunClass</span> = "True: creates a HTML class 'sunday' on every Sunday";</li>
+<li><span class="code">var $crSatClass</span> = "True: creates a HTML class 'saturday' on every Saturday";</li>
+<li><span class="code">******** Yearview display ********</span></li>
+<li><span class="code">var $rowCount</span> = "Number of months in a row in yearview";<br />
+<span class="small">[This is just the default configuration. You may set the number of months in a row by calling the method showYear()]</span></li><br />
+You should leave the other variables in the class file unchanged.
+</span>
+</p>
+<p class="normal">2. Upload the Active Calendar files <span class="code">activecalendar.php</span> and <span class="code">activecalendarweek.php</span> on your server and include them in your scripts.
+</p>
+<hr></hr>
+<table width="100%" border="0" bgcolor="#ffffff">
+<tr>
+<td class="small">
+(c) Giorgos Tsiledakis, Crete Greece
+</td>
+</tr>
+</table>
+<hr></hr>
+</body>
+</html>

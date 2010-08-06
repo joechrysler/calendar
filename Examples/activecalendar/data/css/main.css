@@ -1,0 +1,94 @@
+body {
+	font-family: Verdana, Helvetica, Tahoma, Arial, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	font-weight: normal;
+}
+h1 {
+	font-size: 18px;
+}
+h2 {
+	font-size: 16px;
+}
+h3 {
+	font-size: 14px;
+}
+a {
+	text-decoration: none;
+	color: #000099;
+	text-align: center;
+}
+a:hover {
+	text-decoration: none;
+	color: #3163CE;
+}
+select, input {
+	font-family: Verdana, Helvetica, Tahoma, Arial, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+}
+.img {
+	border: 1px solid;
+}
+ul {
+	font-family: Verdana, Helvetica, Tahoma, Arial, sans-serif;
+	font-size: 11px;
+	text-align: justify;
+	font-weight: normal;
+}
+p {
+	font-family: Verdana, Helvetica, Tahoma, Arial, sans-serif;
+	font-size: 11px;
+	text-align: justify;
+	font-weight: normal;
+}
+.phead {
+	font-size: 13px;
+	font-weight: bold;
+}
+.box {
+	border: 1px solid #dddddd;
+	background-color: #f9f9e9;
+}
+.small {
+	font-size: 9px;
+	font-weight: normal;
+}
+.code {
+	font-family: Tahoma, Verdana, Helvetica, Arial, sans-serif;
+	font-size: 12px; 
+	font-weight: bold; 
+	color: #000099; 
+	text-align: left;
+	background-color: #e9e9e9;
+	border: 1px solid;
+} 
+.exampletbl {
+	text-align: center;
+	border: 1px solid #bbbbbb;
+	padding: 5px;
+}
+.exampletbl td {
+	font-family: Verdana, Helvetica, Tahoma, Arial, sans-serif;
+	font-size: 11px;
+	text-align: center;
+	font-weight: normal;
+	border: 1px solid #c9c9c9;
+	padding: 3px;
+}
+.exampletbl #monthexamples {
+	background-color: #e9e9e9;
+	border: 1px solid;
+}
+.exampletbl #yearexamples {
+	background-color: #d9d9d9;
+	border: 1px solid;
+}
+.exampletbl #weekexamples {
+	background-color: #e9e9e9;
+	border: 1px solid;
+}
+.exampletbl #specialexamples {
+	background-color: #d9d9d9;
+	border: 1px solid;
+}

@@ -1,0 +1,410 @@
+<html>
+<head>
+<title>Active Calendar Class Documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+A {text-decoration: underline; color: #003F80;	text-align: center; font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 12px; }
+A:Hover {text-decoration: none; color: #3163CE; }
+.normal {font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 11px; text-align: justify; font-weight: normal;}
+.small { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 10px}
+.header { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 16px; font-weight: bold;}
+.subheader { font-family: Helvetica, Tahoma, Arial; font-size: 14px; font-weight: bold; font-style: italic; text-decoration: underline;}
+.code {  font-family: "Courier New", Courier, mono; font-size: 12px; font-weight: bold; color: #000099; text-align: left}
+.mycss {  font-family: "Courier New", Courier, mono; font-size: 11px; font-weight: normal; color: #000099; text-align: left}
+-->
+</style>
+</head>
+
+<body bgcolor="#ffffff">
+<p class="normal"><span class="header">Active Calendar Class v1.0.6 Dokumentation</span>
+</p>
+<hr></hr>
+<table width="100%" border="0" bgcolor="#ffffff">
+<tr>
+<td class="small">
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen der <a href="http://www.opensource.org/licenses/lgpl-license.html" class="small" target="_blank">GNU Lesser General Public License</a>, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren.
+</td>
+</tr>
+<tr>
+<td class="small">
+Der Author wäre für Ihre Anregungen oder Empfehlungen sehr dankbar. Bitte besuchen Sie die <a href="http://freshmeat.net/redir/activecalendar/53267/url_homepage/" class="small" target="_blank">Active Calendar Website</a>, falls Sie den Author kontaktieren möchten.
+</td>
+</tr>
+</table>
+<hr></hr>
+<p class="subheader">Inhalt</p>
+<ul class="normal">
+<table width="80%" border="0" bgcolor="#ffffff">
+<tr><td><a href="#about">Über diese Klasse</a></td></tr>
+<tr><td><a href="#use">Anwendung der Klasse</a>
+<ul>
+<li><a href="#methods">Methoden der Klasse</a></li>
+<li><a href="#example">Beispiele</a></li>
+<li><a href="#layout">Kalender Layout</a></li>
+</ul>
+</td></tr>
+<tr><td><a href="#quick">Schnellinstallation</a></td></tr>
+</table>
+</ul>
+<p class="subheader"><a name="about"></a>Über die 'Active Calendar' Klasse</p>
+<p class="normal">'Active Calendar' ist eine PHP Klasse für die dynamische Berechnung und Anzeige von Kalendern (Monats- und Jahresansicht) in HTML (XHTML-Valid).</p>
+<ul class="normal">
+Die erzeugten Kalender:
+<li>können statisch (ohne links) sein</li>
+<li>können Navigationslinks enthalten</li>
+<li>können einen 'Date Picker' enthalten</li>
+<li>können Tageslinks enthalten (url oder javascript)</li>
+<li>können 'event days' mit 'event links' enthalten</li>
+<li>können 'event' Inhalte mit 'links' enthalten</li>
+<li>unterstützen unterschiedliche GMT Zonen für die Berechnung des aktuellen Datums</li>
+<li>unterstützen veränderbare Monats- und Wochentagsnamen</li>
+<li>können einfach mit CSS gesteuert werden</li>
+<li>benötigen kein Javascript, um angezeigt oder navigiert zu werden</li>
+<li>werden mit nur 2-3 Zeilen von Code generiert</li>
+</ul>
+<p class="normal">Active Calendar basiert auf den <span class="code">nativen PHP Datum Funktionen</span> (Voreinstellung) und unterstützt bei Bedarf auch die <a href="http://phplens.com/phpeverywhere/adodb_date_library" class="code" target="_blank">ADOdb Date Library</a>.</p>
+<ul class="normal">
+Active Calendar unterstützt foldende Kalenderjahre (auf Systemen, die ein 32-bit signed integer Unix time_t verwenden):
+<li>Mit nativen PHP Datum Funktionen: 1902 - 2037 (UNIX) und 1971 - 2037 (Windows)</li>
+<li>Mit ADOdb Date Library: 100 - 3000 und mehr <span class="small">[ begrenzt nur durch die Berechnugszeit der adodb_mktime() ]</span> auf UNIX und Windows. Um die ADOdb Date Library zu verwenden, binden Sie sie einfach in Ihren Scripten ein. Die Active Calendar Klasse erkennt die Funktionen der Bibliothek automatisch.</li>
+</ul>
+<p class="subheader"><a name="use"></a>Anwendung der 'Active Calendar' Klasse</p>
+<p class="normal"><a name="methods"></a>Methoden der Klasse:
+<ul class="normal">
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal = new activeCalendar([$year,$month,$day,$gmt_zone]);
+</td></tr>
+<tr><td class="normal">
+Erzeugen Sie zuerst einer Instanz der Klasse. Die Parameter $year, $month and $day sind optional. Falls diese Parameter nicht gesetzt werden, das aktuelle Jahr, der aktuelle Monat und der aktuelle Tag werden vom Programm errechnet und bearbeitet. Der Parameter $year muß ein vierstelliges Format aufweisen z.B. "2005" oder "1996",  der Parameter $month muß einstellig sein, z.B. "1" für Januar oder "10" für Oktober, und der Parameter $day muß zweistellig sein, z.B. "4" für den 4. des Monats oder "24" für den 24. des Monats. Also, für das Datum 7. Januar 2005 setzen Sie $cal = new activeCalendar("2005","1","7"). Der Parameter $gmt_zone ist ebenfalls optional. Mittels dieses Parameters können Sie eine GMT (Greenwich Mean Time) Zone für die Berechnung des aktuellen Datums bestimmen (z.B 9 für Osaka Japan, 2 für Athen Griechenland, -5 für New York USA). Falls $gmt_zone nicht gesetzt ist, wird die lokale Zeit des Servers verwendet.
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->enableMonthNav([$link,$arrowBack,$arrowForw]);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, wenn die Monatsansicht des erzeugten Kalenders Navigationslinks enthalten soll. Der Parameter $link ist optional. Mittels diesen Parameters können Sie die URL für die links des Kalenders setzen (z.B. "mycalendar.php" oder "mycalendar.php?mode=4&amp;item=test", falls Sie komplexere Urls benötigen). Sie sollten die private Methode mkUrl() modifizieren, falls Sie die allgemeine Struktur der generierten links ändern möchten. Die Parameter $arrowBack und $arrowForw sind ebenfalls optional: Mittels dieser Parameter können Sie andere als die voreingestellten Navigationspfeile setzen (z.B ein image link).
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->enableYearNav([$link,$arrowBack,$arrowForw]);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, wenn die Jahresansicht des erzeugten Kalenders Navigationslinks enthalten soll. Der Parameter $link ist optional. Mittels diesen Parameters können Sie die URL für die links des Kalenders setzen (z.B. "mycalendar.php" oder "mycalendar.php?mode=4&amp;item=test", falls Sie komplexere Urls benötigen). Sie sollten die private Methode mkUrl() modifizieren, falls Sie die allgemeine Struktur der generierten links ändern möchten. Die Parameter $arrowBack und $arrowForw sind ebenfalls optional: Mittels dieser Parameter können Sie andere als die voreingestellten Navigationspfeile setzen (z.B ein image link).
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->enableDatePicker([$startYear,$endYear,$link,$button]);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, wenn die Monatsansicht des erzeugten Kalenders einen 'Date Picker' enthalten soll. Die Parameter $startYear and $endYear bestimmen welche Jahre ausgewählt werden können (z.B. $startYear=2000, $endYear=2010). Die Jahresauswahl wird jedoch von den privaten Varablen der Klasse $startYear und $endYear begrenzt. Bitte modifizieren Sie die voreingestellten Werte, falls nötig. Der Parameter $link ist optional. Mittels diesen Parameters können Sie die URL für die links des Kalenders setzen (z.B. "mycalendar.php" oder "mycalendar.php?mode=4&amp;item=test", falls Sie komplexere Urls benötigen). Sie sollten die private Methode mkUrl() modifizieren, falls Sie die allgemeine Struktur der generierten links ändern möchten. Der Parameter $button ist ebenfalls optional. Mittels diesen Parameters können Sie einen anderen als den voreingestellten Wert (value) für das 'Date Picker button' setzen.
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->enableDayLinks([$link,$javaScript]);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, wenn der erzeugte Kalender Tageslinks enthalten soll. Der Parameter $link ist optional. Mittels diesen Parameters können Sie die URL für die links des Kalenders setzen (z.B. "mycalendar.php" oder "mycalendar.php?mode=4&amp;item=test", falls Sie komplexere Urls benötigen). Sie sollten die private Methode mkUrl() modifizieren, falls Sie die allgemeine Struktur der generierten links ändern möchten. Der Parameter $javaScript ist ebenfalls optional. Mittels diesen Parameters können Sie eine JavaScript Funktion statt einer URL für die links des Kalenders setzen. Wenn Sie also $cal->enableDayLinks(false,&quot;selectDate&quot;) setzen, folgender link wird z.B. am 27 Mai 2007 generiert: ..href=&quot;javascript:selectDate(2007,5,27)&quot;.. Der Inhalt der Javascript Funktion 'selectDate' wird nicht von der Klasse generiert. Bitte entwickeln Sie ihn je nach Bedarf.
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->setMonthNames($monthNamesArray);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, falls die Klasse andere als die voreingestellten Monatsnamen erzeugen soll. Der Parameter $monthNamesArray muss ein Array mit 12 Monatsnamen sein und mit Januar beginnen.
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->setDayNames($dayNamesArray);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, falls die Klasse andere als die voreingestellten Wochentagsnamen erzeugen soll. Der Parameter $dayNamesArray muss ein Array mit 7 Wochentagsnamen sein und mit Sonntag beginnen.
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->setEvent($year,$month,$day,[$id,$eventUrl]);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, wenn der erzeugte Kalender eine HTML td class=$id am Datum $day/$month/$year enthalten soll. Sie können dann jedes 'event' in Ihrem CSS so konfigurieren, dass es z.B eine andere 'background' Farbe hat. Der Parameter $id ist optional. Falls Sie kein $id setzen, eine voreingestellte HTML class='event' wird erzeugt. Der Parameter $eventUrl ist ebenfalls optional: Falls er gesetzt wird, ein link (..href='$eventUrl'..) wird am 'event' Tag generiert, selbst wenn Sie die Methode $cal->enableDayLinks($link) nicht aufgerufen haben.
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->setEventContent($year,$month,$day,$content,[$contentUrl,$id]);
+</td></tr>
+<tr><td class="normal">
+Rufen Sie diese Methode auf, wenn der erzeugte Kalender ein neues HTML table mit dem Inhalt $content am Datum $day/$month/$year enthalten soll. Der Parameter $content kann entweder ein String oder ein Array sein. Falls $content ein String ist, generiert die Klasse ein HTML table mit einer Reihe, die den String darstellt. Ist es ein Array, generiert die Klasse ein HTML table mit so vielen Reihen, wie die Länge des Arrays, und jede Reihe enthält einen Array Wert. Der Parameter $contentUrl ist optional: Falls er gesetzt wird, ein link (..href='$contentUrl'..) wird im 'event' Inhalt generiert, selbst wenn Sie die Methode $cal->enableDayLinks($link) nicht aufgerufen haben. Der Parameter $id ist ebenfalls optional und setzt den Namen der generierten HTML Klasse des jeweiligen Inhaltes (voreingestellt: 'eventcontent').
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->showMonth([$showNoMonthDays]);  
+</td></tr>
+<tr><td class="normal">
+Diese Methode erzeugt den HTML Code für die Monatsansicht des Kalenders. Der Kalender wird durch "print $cal->showMonth()" angezeigt. Diese Methode ruft einige private Funktionen der Klasse auf, die jeden tr tag des Kalenders generieren. Falls Sie also die Struktur des Kalenders modifizieren möchten, können Sie einfach die Reihenfolge ändern, in der diese private Funktionen aufgerufen werden (mkMonthHead() sollte allerdings immer als Erstes und mkMonthFoot() immer als Letztes aufgerufen werden). Der Parameter $showNoMonthDays ist optional. Falls dieser Parameter auf true gesetzt ist, enth&auml;lt der generierte Kalender auch die Tage, die nicht zum aktuellen Monat geh&ouml;ren (voreingestellt: false). Bitte beachten Sie, dass diese Tage keine 'events' oder 'event contents' enthalten!
+
+</td></tr></table>
+<br />
+<table width="80%" border="0"><tr><td bgcolor="#DDDDDD" class="code">
+$cal->showYear([$columns]);
+</td></tr>
+<tr><td class="normal">
+Diese Methode erzeugt den HTML Code für die Jahresansicht des Kalenders. Der Kalender wird durch "print $cal->showYear()" angezeigt. Diese Methode ruft einige private Funktionen der Klasse auf, die jeden tr tag des Kalenders generieren. Falls Sie also die Struktur des Kalenders modifizieren möchten, können Sie einfach die Reihenfolge ändern, in der diese private Funktionen aufgerufen werden (mkYearHead() sollte allerdings immer als Erstes und mkYearFoot() immer als Letztes aufgerufen werden). Der Parameter $columns ist optional. Mittels diesen Parameters können Sie die Anzahl der Monaten in jeder Reihe der Jahresansicht setzen (voreingestellt: 4).
+</td></tr></table>
+</ul>
+</p>
+<p class="normal"><a name="example"></a>Beispiele:
+<ul class="normal">
+Aktueller Monat ohne Navigation oder 'day links'
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$cal = new activeCalendar();<br />
+echo $cal->showMonth();<br />
+?&gt;
+</td></tr></table>
+<br />
+Aktueller Monat mit Navigation
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br />
+$yearID=false; //  init false to display current year<br />
+$monthID=false; // init false to display current month<br />
+$dayID=false; // init false to display current day<br />
+extract($_GET); // get the new values (if any) of $yearID,$monthID,$dayID<br />
+$cal = new activeCalendar($yearID,$monthID,$dayID);<br />
+$cal->enableMonthNav($myurl);<br />
+echo $cal->showMonth();<br />
+?&gt;
+</td></tr></table>
+<br />
+Aktueller Monat mit 'Date Picker' (Jahre: 2000 bis 2010)
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br />
+$yearID=false; //  init false to display current year<br />
+$monthID=false; // init false to display current month<br />
+$dayID=false; // init false to display current day<br />
+extract($_GET); // get the new values (if any) of $yearID,$monthID,$dayID<br />
+$cal = new activeCalendar($yearID,$monthID,$dayID);<br />
+$cal->enableDatePicker(2000,2010,$myurl);<br />
+echo $cal->showMonth();<br />
+?&gt;
+</td></tr></table>
+<br />
+Monat (November 2007) mit 'day links'
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br />
+$cal = new activeCalendar(&quot;2007&quot;,&quot;11&quot;);<br />
+$cal->enableDayLinks($myurl);<br />
+echo $cal->showMonth();<br />
+?&gt;
+</td></tr></table>
+<br />
+Monat (November 2007) mit verschiedenen 'events'
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$cal = new activeCalendar(&quot;2007&quot;,&quot;11&quot;);<br />
+$cal->setEvent(&quot;2007&quot;,&quot;11&quot;,&quot;17&quot;,&quot;meeting&quot;); //it will create a class=&quot;meeting&quot;<br />
+$cal->setEvent(&quot;2007&quot;,&quot;11&quot;,&quot;7&quot;,&quot;birthday&quot;); //it will create a class=&quot;birthday&quot;<br />
+//The following will create a class=&quot;myevent&quot; and an &lt;a href=&quot;myevent.html&quot;&gt;<br />
+$cal->setEvent(&quot;2007&quot;,&quot;11&quot;,&quot;20&quot;,&quot;myevent&quot;,&quot;myevent.html&quot;);<br />
+echo $cal->showMonth();<br />
+?&gt;
+</td></tr></table>
+<br />
+Aktuelles Jahr ohne Navigation oder 'day links' und mit 2 Spalten
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$cal = new activeCalendar();<br />
+echo $cal->showYear(2); // 2 months in each row<br />
+?&gt;
+</td></tr></table>
+<br />
+Aktuelles Jahr mit Navigation
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br />
+$yearID=false; //  init false to display current year<br />
+$monthID=false; // init false to display current month<br />
+$dayID=false; // init false to display current day<br />
+extract($_GET); // get the new values (if any) of $yearID,$monthID,$dayID<br />
+$cal = new activeCalendar($yearID,$monthID,$dayID);<br />
+$cal->enableYearNav($myurl);<br />
+echo $cal->showYear();<br />
+?&gt;
+</td></tr></table>
+<br />
+Jahr (2007) mit 'day links'
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br />
+$cal = new activeCalendar(&quot;2007&quot;);<br />
+$cal->enableDayLinks($myurl);<br />
+echo $cal->showYear();<br />
+?&gt;
+</td></tr></table>
+<br />
+Jahr (2007) mit verschiedenen 'events'
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$cal = new activeCalendar(&quot;2007&quot;);<br />
+$cal->setEvent(&quot;2007&quot;,&quot;1&quot;,&quot;24&quot;,&quot;meeting&quot;);<br />
+$cal->setEvent(&quot;2007&quot;,&quot;5&quot;,&quot;12&quot;,&quot;birthday&quot;);<br />
+$cal->setEvent(&quot;2007&quot;,&quot;6&quot;,&quot;24&quot;,&quot;event&quot;);<br />
+$cal->setEvent(&quot;2007&quot;,&quot;6&quot;,&quot;25&quot;);<br />
+echo $cal->showYear();<br />
+?&gt;
+</td></tr></table>
+<br />
+Jahr (2007) mit verschiedenen 'event' Inhalten
+<table width="80%" border="0" bgcolor="#DDDDDD" class="code"><tr><td>
+&lt;?php<br />
+require_once(&quot;activecalendar.php&quot;);<br />
+$cal = new activeCalendar(&quot;2007&quot;);<br />
+$cal->setEventContent(&quot;2007&quot;,&quot;1&quot;,&quot;24&quot;,&quot;meeting&quot;);<br />
+$cal->setEventContent(&quot;2007&quot;,&quot;5&quot;,&quot;12&quot;,&quot;birthday&quot;);<br />
+$cal->setEventContent(&quot;2007&quot;,&quot;6&quot;,&quot;24&quot;,&quot;Google&quot;,&quot;http://www.google.com&quot;);<br />
+$multipleLinesEvent=array("Title: News","Time: 16.00","Status: ok");
+$cal->setEventContent(&quot;2007&quot;,&quot;6&quot;,&quot;25&quot;,$multipleLinesEvent);<br />
+echo $cal->showYear();<br />
+?&gt;
+</td></tr></table>
+<br />
+</ul>
+</p>
+<p class="normal"><a name="layout"></a>Layout des Kalenders:
+<ul class="normal">
+<table width="80%" border="0" bgcolor="#ffffff" class="normal"><tr><td>
+Die äußerliche Erscheinung der produzierten Kalender kann durch CSS beeinflusst werden. Die 'Aktive Calendar' Klasse generiert HTML Tags mit unterschiedlichen Klassen, die dazu benutzt werden können, die Kalendererscheinung im Browser zu steuern. Bitte überprüfen Sie foldende CSS (basiert auf den voreingestellten Werten):
+</td></tr></table>
+<br />
+<table width="80%" border="0" bgcolor="#DDDDDD" class="mycss"><tr><td>
+.year {border-style: outset; border-width: 1px; background-color: #cbeaca; text-align: center;}<br />
+.month {border-style: none; background-color: #cbeaca; text-align: center;}<br />
+.yearname {text-align: center; font-size: 20px; font-weight: bold;}<br />
+.monthname {text-align: center; font-size: 13px; height: 30px; background-color: #e9e9e9;}<br />
+.yearnavigation {background-color: #dddddd;}<br />
+.monthnavigation {background-color: #dddddd;}<br />
+.datepicker {background-color: #ffffff;}<br />
+.datepickerform {margin: 0px;}<br />
+.monthpicker {background-color: #eeeeee;}<br />
+.yearpicker {background-color: #eeeeee;}<br />
+.pickerbutton {background-color: #eeeeee; border-style: none;}<br />
+.dayname td {text-align: center; font-size: 13px; background-color: #dddddd;}<br />
+.nomonthday {background-color: #cbeaca; height:25px; width:25px;}<br />
+.monthday {text-align: center; background-color: #e9e9e9; height:25px; width:25px;}<br />
+.today {text-align: center; background-color: #ffff99; height:25px; width:25px;}<br />
+.selectedday {text-align: center; background-color: #66ff66; height:25px; width:25px;}<br />
+.sunday {text-align: center; font-weight: bold; color: red; height:20px; width:20px;}<br />
+.sunday a {color: red;}<br />
+.saturday {text-align: center; font-weight: bold; color: red; height:20px; width:20px;}<br />
+.saturday a {color: red;}<br />
+.event {text-align: center; color: red; background-color: #ffff99; height:20px; width:20px;}<br />
+.event a {background-color: #ffff99; color: red;}<br />
+.selectedevent {text-align: center; color: red; background-color: #ffff99; height:20px; width:20px;}<br />
+.selectedevent a {background-color: #ffff99; color: red;}<br />
+.todayevent {text-align: center; color: red; background-color: #ffff99; height:20px; width:20px;}<br />
+.todayevent a {background-color: #ffff99; color: red;}<br />
+.eventcontent {font-size: 10px; border-style: outset; border-width: 1px;}
+</td></tr></table>
+<br />
+<table width="80%" border="0" bgcolor="#ffffff" class="normal">
+<tr><td colspan="3">
+Es folgt eine Liste mit den Klassen der von der 'Active Calendar' Klasse generierten HTML Tags, sowie Ihre Kongfigurationsvariablen. Um Konflikte mit bereits existierenden CSS Namen zu vermeiden, können Sie die generierten Namen in der Active Calendar Konfiguration verändern.
+</td></tr>
+<tr><td><u>Konfigurationsvariable</u></td><td><u>HTML Klasse</u></td><td><u>HTML TAG</u></td></tr>
+<tr><td class="code">$cssYearTable</td><td>year</td><td>table tag: Jahresansicht</td></tr>
+<tr><td class="code">$cssYearTitle</td><td>yearname</td><td>td tag: Titel der Jahresansicht</td></tr>
+<tr><td class="code">$cssYearNav</td><td>yearnavigation</td><td>td tag: Navigation der Jahresansicht</td></tr>
+<tr><td class="code">$cssMonthTable</td><td>month</td><td>table tag: Monatsansicht</td></tr>
+<tr><td class="code">$cssMonthTitle</td><td>monthname</td><td>td tag: Titel der Monatsansicht</td></tr>
+<tr><td class="code">$cssMonthNav</td><td>monthnavigation</td><td>td tag: Navigation der Monatsansicht</td></tr>
+<tr><td class="code">$cssWeekDay</td><td>dayname</td><td>tr tag: Wochentage</td></tr>
+<tr><td class="code">$cssPicker</td><td>datepicker</td><td>td tag: 'Date Picker'</td></tr>
+<tr><td class="code">$cssPickerForm</td><td>datepickerform</td><td>form tag: 'Date Picker' Form</td></tr>
+<tr><td class="code">$cssPickerMonth</td><td>monthpicker</td><td>select tag: Monatsauswahl</td></tr>
+<tr><td class="code">$cssPickerYear</td><td>yearpicker</td><td>select tag: Jahresauswahl</td></tr>
+<tr><td class="code">$cssPickerButton</td><td>pickerbutton</td><td>input (submit) tag: 'Date Picker button'</td></tr>
+<tr><td class="code">$cssMonthDay</td><td>monthday</td><td>td tag: Tage, die zum aktuellen Monat gehören</td></tr>
+<tr><td class="code">$cssNoMonthDay</td><td>nomonthday</td><td>td tag: Tage, die nicht zum aktuellen Monat gehören</td></tr>
+<tr><td class="code">$cssToday</td><td>today</td><td>td tag: der heutige Tag</td></tr>
+<tr><td class="code">$cssSelecDay</td><td>selectedday</td><td>td tag: der ausgewählte Tag</td></tr>
+<tr><td class="code">$cssSunday</td><td>sunday</td><td>td tag: alle Sonntage</td></tr>
+<tr><td class="code">$cssSaturday</td><td>saturday</td><td>td tag: alle Samstage</td></tr>
+<tr><td class="code">$cssEvent</td><td>event</td><td>td tag: 'Event' Tag durch setEvent(). Verschiedene Klassen können generiert werden (z.B. 'meeting')</td></tr>
+<tr><td class="code">$cssPrefixSelecEvent</td><td>selected</td><td>td tag: 'Event' Tag durch setEvent(), falls er ausgwählt wird. Das prefix wird vor dem 'event' Klassennamen hinzugefügt (z.B. 'selectedevent'). Verschiedene Klassen können generiert werden (z.B. 'selectedmeeting')</td></tr>
+<tr><td class="code">$cssPrefixTodayEvent</td><td>today</td><td>td tag: 'Event' Tag durch setEvent(), falls er der heutige Tag ist. Das prefix wird vor dem 'event' Klassennamen hinzugefügt (z.B. 'todayevent'). Verschiedene Klassen können generiert werden (z.B. 'todaymeeting')</td></tr>
+<tr><td class="code">$cssEventContent</td><td>eventcontent</td><td>table tag : 'Event' Inhalt durch setEventContent(). Verschiedene Klassen können generiert werden (z.B. 'meetingcontent')</td></tr>
+</table>
+</ul>
+</p>
+<p class="subheader"><a name="quick"></a>Schnellinstallation</p>
+<p class="normal">1. Bearbeiten Sie den Konfigurationsbereich der Klasse in der 'Active Calendar Class' Datei <span class="code">activecalendar.php</span>, falls Sie die Voreinstellungen ändern möchten.
+<ul class="normal">
+Der Wert folgender Variablen kann modifiziert werden:
+<li><span class="code">********* Monatsnamen *********</span><br />
+<span class="small">[Dies ist nur die Voreinstellung. Sie können unterschiedliche Monatsnamen mit Hilfe der Methode setMonthNames() setzen]</span></li>
+<li><span class="code">var $jan</span> = "Name oder Abkürzung für den Monat Januar";</li>
+<li><span class="code">var $feb</span> = "Name oder Abkürzung für den Monat Februar";</li>
+<li><span class="code">var $mar</span> = "Name oder Abkürzung für den Monat März";</li> 
+<li><span class="code">var $apr</span> = "Name oder Abkürzung für den Monat April";</li>
+<li><span class="code">var $may</span> = "Name oder Abkürzung für den Monat Mai";</li>
+<li><span class="code">var $jun</span> = "Name oder Abkürzung für den Monat Juni";</li>
+<li><span class="code">var $jul</span> = "Name oder Abkürzung für den Monat Juli";</li> 
+<li><span class="code">var $aug</span> = "Name oder Abkürzung für den Monat August";</li>
+<li><span class="code">var $sep</span> = "Name oder Abkürzung für den Monat September";</li> 
+<li><span class="code">var $oct</span> = "Name oder Abkürzung für den Monat Oktober";</li>
+<li><span class="code">var $nov</span> = "Name oder Abkürzung für den Monat November";</li> 
+<li><span class="code">var $dec</span> = "Name oder Abkürzung für den Monat Dezember";</li>
+<li><span class="code">******** Wochentagsnamen ********</span><br />
+<span class="small">[Dies ist nur die Voreinstellung. Sie können unterschiedliche Wochentagsnamen mit Hilfe der Methode setDayNames() setzen]</span></li>
+<li><span class="code">var $sun</span> = "Name oder Abkürzung für Sonntag";</li>
+<li><span class="code">var $mon</span> = "Name oder Abkürzung für Montag";</li>
+<li><span class="code">var $tue</span> = "Name oder Abkürzung für Dienstag";</li>
+<li><span class="code">var $wed</span> = "Name oder Abkürzung für Mittwoch";</li>
+<li><span class="code">var $thu</span> = "Name oder Abkürzung für Donnerstag";</li>
+<li><span class="code">var $fri</span> = "Name oder Abkürzung für Freitag";</li>
+<li><span class="code">var $sat</span> = "Name oder Abkürzung für Samstag";</li>
+<li><span class="code">****** Navigationskontrolle ******</span><br />
+<span class="small">[Dies ist nur die Voreinstellung. Sie können unterschiedliche Wochentagsnamen mit Hilfe der Methoden enableYearNav(), enableMonthNav() und enableDatePicker() setzen]</span></li>
+<li><span class="code">var $yearNavBack</span> = "Voriges Jahr (es kann auch ein 'image link' sein z.B.:&lt;img src=\&quot;leftarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $yearNavForw</span> = "Nächstes Jahr (es kann auch ein 'image link' sein z.B.:&lt;img src=\&quot;rightarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $monthNavBack</span> = "Voriger Monat (es kann auch ein 'image link' sein z.B.:&lt;img src=\&quot;leftarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $monthNavForw</span> = "Nächster Monat (es kann auch ein 'image link' sein z.B.:&lt;img src=\&quot;rightarrow.gif\&quot;&gt;";</li>
+<li><span class="code">var $selBtn</span> = "Date Picker button value";</li>
+<li><span class="code">****** 'Day links' Variablen ******</span></li>
+<li><span class="code">var $yearID</span> = "Name der GET VARIABLE des Jahres für die links";</li>
+<li><span class="code">var $monthID</span> = "Name der GET VARIABLE des Monats für die links";</li>
+<li><span class="code">var $dayID</span> = "Name der GET VARIABLE des Tages für die links";</li>
+<li><span class="code">******** Monatsansicht ********</span></li>
+<li><span class="code">var $monthYearDivider</span> = "Trennzeichen zwischen Monat und Jahr im Monatstitel z.B. '/'";</li>
+<li><span class="code">var $startOnSun</span> = "True: erster Wochentag ist Sonntag, False: erster Wochentag ist Montag";</li>
+<li><span class="code">var $crSunClass</span> = "True: generiert eine HTML Klasse 'sunday' an allen Sonntagen";</li>
+<li><span class="code">var $crSatClass</span> = "True: generiert eine HTML Klasse 'saturday' an allen Samstagen";</li>
+<li><span class="code">******** Jahresansicht ********</span></li>
+<li><span class="code">var $rowCount</span> = "Anzahl der Monate in jeder Reihe der Jahresansicht";<br />
+<span class="small">[Dies ist nur die Voreinstellung. Sie können die Anzahl der Monate in jeder Reihe der Jahresansicht mit Hilfe der Methode showYear() setzen]</span></li><br />
+Sie sollten die restlichen Variablen unverändert lassen.
+</ul>
+</p>
+<p class="normal">2. Kopieren Sie einfach die 'Active Calendar Class' Datei <span class="code">activecalendar.php</span> auf Ihren Webserver und binden Sie sie in Ihren Scripten ein.
+</p>
+<hr></hr>
+<table width="100%" border="0" bgcolor="#ffffff">
+<tr>
+<td class="small">
+(c) 2005 - 2006 Giorgos Tsiledakis, Kreta Griechenland
+</td>
+</tr>
+</table>
+<hr></hr>
+</body>
+</html>

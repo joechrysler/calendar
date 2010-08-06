@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ 
+
+<head>
+
+<title>Planning Calendar</title> 
+
+<link rel="stylesheet" type="text/css" href="CSS/main_Old.css" />
+<SCRIPT type="text/javascript" src="js/main.js"></script>
+
+<meta http-equiv="content-type" 
+content="text/html; charset=iso-8859-1" /> 
+
+</head>	
+<body>
+
+<h2 id="heading2">DateHere</h2>
+
+<div id="datebook"><img src="images\datebook1.jpg" alt="Date Book" /></div>
+
+<ul id="timeLinks">
+<li id="time0"><a href="test.html">12:00AM</a></li>
+<li id="time1"><a href="test.html">1:00AM</a></li>
+<li id="time2"><a href="test.html">2:00AM</a></li>
+<li id="time3"><a href="test.html">3:00AM</a></li>
+<li id="time4"><a href="test.html">4:00AM</a></li>
+<li id="time5"><a href="test.html">5:00AM</a></li>
+<li id="time6"><a href="test.html">6:00AM</a></li>
+<li id="time7"><a href="test.html">7:00AM</a></li>
+<li id="time8"><a href="test.html">8:00AM</a></li>
+<li id="time9"><a href="test.html">9:00AM</a></li>
+<li id="time10"><a href="test.html">10:00AM</a></li>
+<li id="time11"><a href="test.html">11:00AM</a></li>
+<li id="time12"><a href="test.html">12:00PM</a></li>
+<li id="time13"><a href="test.html">1:00PM</a></li>
+<li id="time14"><a href="test.html">2:00PM</a></li>
+<li id="time15"><a href="test.html">3:00PM</a></li>
+<li id="time16"><a href="test.html">4:00PM</a></li>
+<li id="time17"><a href="test.html">5:00PM</a></li>
+<li id="time18"><a href="test.html">6:00PM</a></li>
+<li id="time19"><a href="test.html">7:00PM</a></li>
+<li id="time20"><a href="test.html">8:00PM</a></li>
+<li id="time21"><a href="test.html">9:00PM</a></li>
+<li id="time22"><a href="test.html">10:00P</a></li>
+<li id="time23"><a href="test.html">11:00PM</a></li>
+</div></ul>
+
+<ul id="dayLinks">
+<li id="day0"><a href="test.html">Sunday</a></li>
+<li id="day1"><a href="test.html">Monday</a></li>
+<li id="day3"><a href="test.html">Tuesday</a></li>
+<li id="day4"><a href="test.html">Wednesday</a></li>
+<li id="day5"><a href="test.html">Thursday</a></li>
+<li id="day6"><a href="test.html">Friday</a></li>
+<li id="day7"><a href="test.html">Saturday</a></li>
+</ul> 
+
+<div id="Cal">
+<form>
+<label>month:</label>
+<select name="month">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7" selected>August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+</select>
+
+<label>year:</label>
+<select name="year">
+<option value="2010" selected>2010</option>
+<option value="2011">2011</option>
+<option value="2012">2012</option>
+<option value="2013">2013</option>
+<option value="2014">2014</option>
+<option value="2015">2015</option>
+<option value="2016">2015</option>
+<option value="2017">2016</option>
+<option value="2018">2017</option>
+<option value="2019">2018</option>
+<option value="2020">2019</option>
+<option value="2021">2020</option>
+</select></cal>
+
+<label>day:</label>
+<select name="day">
+<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11" selected>11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>
+<!--When the button is clicked the displayCalendar(passed vars) in js is run -->
+	<input type="button" value="Go" onclick="displayCalendar(document.forms[0].year,document.forms[0].month,document.forms[0].day,this)">
+</form>
+
+<table>
+<tr id="calHd"><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>
+<div id="CalBody">
+<tr><td id="cal0">&nbsp;</td><td id="cal1">&nbsp;</td><td id="cal2">&nbsp;</td>
+<td id="cal3">&nbsp;</td><td id="cal4">&nbsp;</td><td id="cal5">&nbsp;</td>
+<td id="cal6">&nbsp;</td></tr>
+<tr><td id="cal7">&nbsp;</td><td id="cal8">&nbsp;</td><td id="cal9">&nbsp;</td>
+<td id="cal10">&nbsp;</td><td id="cal11">&nbsp;</td><td id="cal12">&nbsp;</td>
+<td id="cal13">&nbsp;</td></tr>
+<tr><td id="cal14">&nbsp;</td><td id="cal15">&nbsp;</td><td id="cal16">&nbsp;</td>
+<td id="cal17">&nbsp;</td><td id="cal18">&nbsp;</td><td id="cal19">&nbsp;</td>
+<td id="cal20">&nbsp;</td></tr>
+<tr><td id="cal21">&nbsp;</td><td id="cal22">&nbsp;</td><td id="cal23">&nbsp;</td>
+<td id="cal24">&nbsp;</td><td id="cal25">&nbsp;</td><td id="cal26">&nbsp;</td>
+<td id="cal27">&nbsp;</td></tr>
+<tr><td id="cal28">&nbsp;</td><td id="cal29">&nbsp;</td><td id="cal30">&nbsp;</td>
+<td id="cal31">&nbsp;</td><td id="cal32">&nbsp;</td><td id="cal33">&nbsp;</td>
+<td id="cal34">&nbsp;</td></tr>
+<tr><td id="cal35">&nbsp;</td><td id="cal36">&nbsp;</td><td id="cal37">&nbsp;</td>
+<td id="cal38">&nbsp;</td><td id="cal39">&nbsp;</td><td id="cal40">&nbsp;</td>
+<td id="cal41">&nbsp;</td></tr>
+</div>
+
+</body>
+
+</html>

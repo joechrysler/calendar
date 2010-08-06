@@ -1,0 +1,459 @@
+<html><head><title>Active Calendar Class v1.0.4 Documentation</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<style type="text/css">
+<!--
+A {text-decoration: underline; color: #003F80;	text-align: center; font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 12px; }
+A:Hover {text-decoration: none; color: #3163CE; }
+normal {font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 11px; text-align: justify; font-weight: normal;}
+small { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 10px}
+header { font-family: Helvetica, Tahoma, Arial, sans-serif; font-size: 16px; font-weight: bold;}
+subheader { font-family: Helvetica, Tahoma, Arial; font-size: 14px; font-weight: bold; font-style: italic; text-decoration: underline;}
+code {  font-family: "Courier New", Courier, mono; font-size: 12px; font-weight: bold; color: #000099; text-align: left}
+mycss {  font-family: "Courier New", Courier, mono; font-size: 11px; font-weight: normal; color: #000099; text-align: left}
+-->
+</style></head>
+<body bgcolor="#ffffff">
+<p class="normal"><span class="header">Active Calendar Class v1.0 Documentation 日本語</span>
+</p>
+<hr>
+<table bgcolor="#ffffff" border="0" width="100%">
+<tbody><tr>
+<td class="small">
+このパッケージ同梱のソースコードは無償で提供されます。改変、譲渡は「GNU Lesser General Public License」記載の条件下で行うことができます。<br>
+<a href="http://www.opensource.org/licenses/lgpl-license.html">GNU Lesser General Public License</a> 
+published by the Free Software Foundation. 非公式な日本語訳は <a href="http://www.opensource.gr.jp/lesser/lgpl.ja.html" class="small" target="_blank">ここで</a> 読むことができます。
+</td>
+</tr>
+<tr>
+<td class="small">
+作者は、コメントや進言を歓迎します。是非、サイト：<a href="http://georgiost.users.phpclasses.org/browse/package/1870.html" class="small" target="_blank">www.phpclasses.org</a> または <a href="http://freshmeat.net/projects/activecalendar/" class="small" target="_blank">freshmeat.net</a>, を訪ねてください。これらサイトで配布しています。
+</td>
+</tr>
+</tbody></table>
+<hr>
+<p class="subheader">目次</p>
+<ul class="normal">
+<table bgcolor="#ffffff" border="0" width="80%">
+<tbody><tr><td><a href="#about">Active Calendar Class について</a></td></tr>
+<tr><td><a href="#use">Active Calendar Class の使い方</a>
+<ul>
+<li><a href="#methods">メソッドの概要：</a></li>
+<li><a href="#example">コード使用例・サンプル：</a></li>
+<li><a href="#layout">レイアウト：</a></li>
+</ul>
+</td></tr>
+<tr><td><a href="#quick">クイックインストール</a></td></tr>
+</tbody></table>
+</ul>
+<p class="subheader"><a name="about"></a>Active Calendar Class について</p>
+<p class="normal">Active Calendar Class は PHP のclassです。カレンダーをHTMLテーブル(XHTML-Valid)で生成します。</p>
+<ul class="normal">
+このclassで生成されるカレンダーは：
+<li>静的な（固定）カレンダーの生成が可能（リンクなし）</li>
+<li>オプションで「ナビゲーションコントロール＝前月へ、次月へ」を付加できます。</li>
+<li>オプションで「選択月へのネビ」を付加できます。</li>
+<li>オプションで「日付リンク」を付加できます。</li>
+<li>オプションで「イベント日をリンク」とともに付加できます。</li>
+<li>オプションで「イベント内容」をCSSで装飾でき、リンクとして付加できます。</li>
+<li>設定で「イベント内容」をCSSで装飾でき、リンクとして付加できます。</li>
+<li>設定で「タイムゾーン＝GMTプラスマイナス」を指定できます。</li>
+<li>CSSを利用してカスタマイズ可能です。</li>
+<li>表示や操作に、Javascriptを必要としません（サーバーサイド生成）。</li>
+<li>２−３行の記述で(動きます)生成ができます。</li>
+</ul>
+<p class="normal">Active Calendarは <span class="code">PHP内包のdate function</span>を(defaultで) ベースにしています。オプションで<a href="http://phplens.com/phpeverywhere/adodb_date_library" class="code" target="_blank">ADOdb Date Library</a>をサポートしています。</p>
+<ul class="normal">
+サポートしている日付　(on systems using a 32-bit signed integer Unix time_t):
+<li>PHP内包のdate function使用時: 1902 - 2037 (UNIX) and 1971 - 2037 (Windows)</li>
+<li>オプションのADOdb Date Library使用時: 100 - 3000 and later <span class="small">[ limited by the computation time of adodb_mktime() ]</span> on both UNIX and Windows.<br> ADOdb Date Library を使用するにはADOdbのスクリプトを　includeしてください。Active Calendar class はライブラリーの機能を自動的に使用します。</li>
+</ul>
+<p class="subheader"><a name="use"></a>Active Calendar Classの使い方</p>
+<p class="normal"><a name="methods"></a>メソッドの概要：
+</p><ul class="normal">
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal = new activeCalendar([$year,$month,$day,$gmt_zone]); 
+</td></tr>
+<tr><td class="normal">
+最初に、新しいオブジェクトを生成します。パラメータ$year, $month and $day
+はオプションです。これらパラメータがセットされていなければ、現在の年、月、日がプログラムに渡されます。$year（年パラメータ）は
+"yyyy"の形にします。例としては"2005" とか "1996"です。$month（月パラメータ）は "m"の形にします。例としては
+"1" で１月とか "10" で１０月です。$day（日パラメータ）は "d"の形にします。例としては "4" で月の４日　とか "24"
+で月の２４日です。２００５年１月７日の場合は　$cal = new
+activeCalendar("2005","1","7")　と、呼び出します。パラメータ $gmt_zone
+もオプションです。現在の日時をGMT（グリニッジ標準時準拠）で計算するために指定します。（例：日本時間は"9"を指定、ギリシャのアテネは"2"、
+ニューヨーク[米国東海岸]は"-5"）。このパラメータがセットされていなければ、サーバーのローカルタイムが使用されます。</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;enableMonthNav([$link,$arrowBack,$arrowForw]);
+</td></tr>
+<tr><td class="normal">
+月ナビゲーション（前の月、次の月）を呼び出します。パラメータ$linkはオプションです。このパラメーターにURLをセットすることができます。(例
+えば： "mycalendar.php" とか "mycalendar.php?mode=4&amp;item=test",
+もっと複雑なものでも・・)。標準で生成されるリンクを変更したい場合には、クラスのprivate method mkUrl()
+を変更する必要があります。$arrowBack（戻り用のパラメータ)と$arrowForw（進む用のパラメータ)もオプションで変更できます（リン
+クを画像にすることもできます）。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;enableYearNav([$link,$arrowBack,$arrowForw]);
+</td></tr>
+<tr><td class="normal">年ナビゲーション（前の年、次の年）を呼び出します。パラメータ$linkはオプションです。このパラ
+メーターにURLをセットすることができます。(例えば： "mycalendar.php" とか
+"mycalendar.php?mode=4&amp;item=test",
+もっと複雑なものでも・・)。標準で生成されるリンクを変更したい場合には、クラスのprivate method mkUrl()
+を変更する必要があります。$arrowBack（戻り用のパラメータ)と$arrowForw（進む用のパラメータ)もオプションで変更できます（リン
+クを画像にすることもできます）。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;enableDatePicker([$startYear,$endYear,$link,$button]);
+</td></tr>
+<tr><td class="normal">月カレンダーを選択コントロール付きで生成したい場合には、このメソッドを呼び出します。パラメーター$
+startYear と $endYear で選択できる年の幅を決めます。(例えば、2000年から2010年の場合は：
+$startYear=2000, $endYear=2010　とします)。このパラメータ値はprivate classの$startYear
+と
+$endYear　の値で設定が制限されています。必要があれば変更してください。パラメータ$linkはオプションです。このパラメーターにURLを
+セットすることができます。(例えば： "mycalendar.php" とか
+"mycalendar.php?mode=4&amp;item=test",
+もっと複雑なものでも・・)。標準で生成されるリンクを変更したい場合には、クラスのprivate method mkUrl()
+を変更する必要があります。パラメータ $button もオプションです。選択コントロールのサブミットボタンを変更したい場合にセットします。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;enableDayLinks([$link,$javaScript]);
+</td></tr>
+<tr><td class="normal">日付をリンクとして生成したい場合には、このメソッドを呼び出します。パラメータ$linkはオプション
+です。このパラメーターにURLをセットすることができます。(例えば： "mycalendar.php" とか
+"mycalendar.php?mode=4&amp;item=test",
+もっと複雑なものでも・・)。標準で生成されるリンクを変更したい場合には、クラスのprivate method mkUrl()
+を変更する必要があります。パラメータ $javaScript
+もオプションです。リンクにURLをセットせず、かわりにJavaScriptのfunctionを割り当てたい時に使用します。もし、
+$cal-&gt;enableDayLinks(false,"selectDate")　のようにセットしますと、2007年5月27日に..
+href="javascript:selectDate(2007,5,27)"..のようにリンクが生成されるでしょう。例における
+Javascript の function 'selectDate'は、このクラスで生成されませんので必要に応じて作成して下さい。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;setMonthNames($monthNamesArray);
+</td></tr>
+<tr><td class="normal">
+月の名前に設定と違う名前を使用して生成する場合に使用します。パラメータ$monthNamesArray は、１月に相当する月の名前から始まる12ヶ月分の配列である必要があります。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;setDayNames($dayNamesArray);
+</td></tr>
+<tr><td class="normal">
+曜日の名前に設定と違う名前を使用して生成する場合に使用します。パラメータ$dayNamesArray は、日曜に相当する曜日の名前から始まる7日分の配列である必要があります。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;setEvent($year,$month,$day,[$id,$eventUrl]);
+</td></tr>
+<tr><td class="normal">パラメータ指定の年月日で、HTMLのtd class=$id
+とするためには、このメソッドを呼び出します。CSS側でイベント日ごとに応じた設定（例えば異なるバックグラウンドカラーにをすることが）可能です。パ
+ラメータ $id
+はオプションです。このパラメーターに設定しないと、デフォルトのHTMLの　class='event'が生成されます。パラメータ
+$eventUrl もオプションです。このパラメータ $eventUrl
+がセットされると、メソッド$cal-&gt;enableDayLinks($link)を呼び出さなくても、イベント日にリンクが生成されます。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;setEventContent($year,$month,$day,$content,[$contentUrl,$id]);
+</td></tr>
+<tr><td class="normal">パラメータ指定の年月日で、HTMLのテーブルを生成するためには、このメソッドを呼び出します。パラ
+メータ$content は、文字列または配列です。$content
+が文字列の場合には、新しく生成されるテーブルは１行となります。$content
+が配列ですと配列の長さで行を生成します。パラメータ$contentUrl はオプションです。このパラメータ $contentUrl
+がセットされると、メソッド$cal-&gt;enableDayLinks($link)を呼び出さなくても、各行にリンクが生成されます。パラメータ
+$id
+はオプションです。このパラメーターをセットするとeventcontentそれぞれに、HTMLのクラス(class='$id')が生成されます。設
+定しないとデフォルトのHTMLのクラス(class='eventcontent')が生成されます。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;showMonth(); 
+</td></tr>
+<tr><td class="normal">月カレンダーをHTML生成します。カレンダーを表示するには "print
+$cal-&gt;showMonth()" とします。このメソッドは、複数のプライベートクラスファンクション群（private class
+functions)を呼び出し、TRタグを生成します。テーブル構造を変更したい場合には、これら呼び出されるプライベートクラスファンクション群の呼
+び出し順を変更してください。(ただし、mkMonthHead() は最初に、そして mkMonthFoot()
+は、最後に呼び出される必要があります)。
+</td></tr></tbody></table>
+<br>
+<table border="0" width="80%"><tbody><tr><td class="code" bgcolor="#dddddd">
+$cal-&gt;showYear([$columns]);
+</td></tr>
+<tr><td class="normal">年カレンダーをHTML生成します。カレンダーを表示するには "print
+$cal-&gt;showYear()" とします。このメソッドは、複数のプライベートクラスファンクション群（private class
+functions)を呼び出し、TRタグを生成します。テーブル構造を変更したい場合には、これら呼び出されるプライベートクラスファンクション群の呼
+び出し順を変更してください。(ただし、mkYearHead() は最初に、そして mkYearFoot()
+は、最後に呼び出される必要があります)。パラメータ$columnsはオプションです。このパラメータは、年カレンダーで、一行に表示される月の数を
+セットします。デフォルトは１行に４か月分になっています。
+</td></tr></tbody></table>
+</ul>
+<p></p>
+<p class="normal"><a name="example"></a>コード使用例・サンプル
+</p><ul class="normal">
+当月の固定（静的）カレンダー
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$cal = new activeCalendar();<br>
+echo $cal-&gt;showMonth();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+ナビゲーション付き、当月のカレンダー
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br>
+$yearID=false; //  init false to display current year<br>
+$monthID=false; // init false to display current month<br>
+$dayID=false; // init false to display current day<br>
+extract($_GET); // get the new values (if any) of $yearID,$monthID,$dayID<br>
+$cal = new activeCalendar($yearID,$monthID,$dayID);<br>
+$cal-&gt;enableMonthNav($myurl);<br>
+echo $cal-&gt;showMonth();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+選択コントロール付(2000-2010年幅)当月のカレンダー
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br>
+$yearID=false; //  init false to display current year<br>
+$monthID=false; // init false to display current month<br>
+$dayID=false; // init false to display current day<br>
+extract($_GET); // get the new values (if any) of $yearID,$monthID,$dayID<br>
+$cal = new activeCalendar($yearID,$monthID,$dayID);<br>
+$cal-&gt;enableDatePicker(2000,2010,$myurl);<br>
+echo $cal-&gt;showMonth();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+指定月 (November 2007) カレンダー　日付リンク付き
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br>
+$cal = new activeCalendar("2007","11");<br>
+$cal-&gt;enableDayLinks($myurl);<br>
+echo $cal-&gt;showMonth();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+指定月 (November 2007) カレンダー　複数のイベント日を表示
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$cal = new activeCalendar("2007","11");<br>
+$cal-&gt;setEvent("2007","11","17","meeting"); //it will create a class="meeting"<br>
+$cal-&gt;setEvent("2007","11","7","birthday"); //it will create a class="birthday"<br>
+//The following will create a class="myevent" and an &lt;a href="myevent.html"&gt;<br>
+$cal-&gt;setEvent("2007","11","20","myevent","myevent.html");<br>
+echo $cal-&gt;showMonth();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+当年の固定（静的）カレンダー　１行に２月
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$cal = new activeCalendar();<br>
+echo $cal-&gt;showYear(2); // 2 months in each row<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+当年のカレンダー　ナビゲーション付き
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br>
+$yearID=false; //  init false to display current year<br>
+$monthID=false; // init false to display current month<br>
+$dayID=false; // init false to display current day<br>
+extract($_GET); // get the new values (if any) of $yearID,$monthID,$dayID<br>
+$cal = new activeCalendar($yearID,$monthID,$dayID);<br>
+$cal-&gt;enableYearNav($myurl);<br>
+echo $cal-&gt;showYear();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+指定年(２００７年）のカレンダー　日付リンク付き
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$myurl=$_SERVER['PHP_SELF']; // the links url is this page<br>
+$cal = new activeCalendar("2007");<br>
+$cal-&gt;enableDayLinks($myurl);<br>
+echo $cal-&gt;showYear();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+指定年 (2007) カレンダー　複数のイベント日を表示
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$cal = new activeCalendar("2007");<br>
+$cal-&gt;setEvent("2007","1","24","meeting");<br>
+$cal-&gt;setEvent("2007","5","12","birthday");<br>
+$cal-&gt;setEvent("2007","6","24","event");<br>
+$cal-&gt;setEvent("2007","6","25");<br>
+echo $cal-&gt;showYear();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+指定年 (2007) カレンダー　複数のイベント内容を表示
+<table class="code" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+&lt;?php<br>
+include("activecalendar.php");<br>
+$cal = new activeCalendar("2007");<br>
+$cal-&gt;setEventContent("2007","1","24","meeting");<br>
+$cal-&gt;setEventContent("2007","5","12","birthday");<br>
+$cal-&gt;setEventContent("2007","6","24","Google","http://www.google.com");<br>
+$multipleLinesEvent=array("Title: News","Time: 16.00","Status: ok");
+$cal-&gt;setEventContent("2007","6","25",$multipleLinesEvent);<br>
+echo $cal-&gt;showYear();<br>
+?&gt;
+</td></tr></tbody></table>
+<br>
+</ul>
+<p></p>
+<p class="normal"><a name="layout"></a>カレンダーのレイアウト:
+</p><ul class="normal">
+<table class="normal" bgcolor="#ffffff" border="0" width="80%"><tbody><tr><td>生
+成されるカレンダーのレイアウトはCSSで設定できます。Active Calendar Class
+は、生成時に数々のHTMLタグをクラスを伴って生成します。これを利用してレイアウト設定が実施できます。下記のサンプルCSS（デフォルト設定で使用
+しています）を参照してください。:
+</td></tr></tbody></table>
+<br>
+<table class="mycss" bgcolor="#dddddd" border="0" width="80%"><tbody><tr><td>
+.year {border-style: outset; border-width: 1px; background-color: #cbeaca; text-align: center;}<br>
+.month {border-style: none; background-color: #cbeaca; text-align: center;}<br>
+.yearname {text-align: center; font-size: 20px; font-weight: bold;}<br>
+.monthname {text-align: center; font-size: 13px; height: 30px; background-color: #e9e9e9;}<br>
+.yearnavigation {background-color: #dddddd;}<br>
+.monthnavigation {background-color: #dddddd;}<br>
+.datepicker {background-color: #ffffff;}<br>
+.datepickerform {margin: 0px;}<br>
+.monthpicker {background-color: #eeeeee;}<br>
+.yearpicker {background-color: #eeeeee;}<br>
+.pickerbutton {background-color: #eeeeee; border-style: none;}<br>
+.dayname td {text-align: center; font-size: 13px; background-color: #dddddd;}<br>
+.nomonthday {background-color: #cbeaca; height:25px; width:25px;}<br>
+.monthday {text-align: center; background-color: #e9e9e9; height:25px; width:25px;}<br>
+.today {text-align: center; background-color: #ffff99; height:25px; width:25px;}<br>
+.selectedday {text-align: center; background-color: #66ff66; height:25px; width:25px;}<br>
+.sunday {text-align: center; font-weight: bold; color: red; height:20px; width:20px;}<br>
+.sunday a {color: red;}<br>
+.saturday {text-align: center; font-weight: bold; color: red; height:20px; width:20px;}<br>
+.saturday a {color: red;}<br>
+.event {text-align: center; color: red; background-color: #ffff99; height:20px; width:20px;}<br>
+.event a {background-color: #ffff99; color: red;}<br>
+.selectedevent {text-align: center; color: red; background-color: #ffff99; height:20px; width:20px;}<br>
+.selectedevent a {background-color: #ffff99; color: red;}<br>
+.todayevent {text-align: center; color: red; background-color: #ffff99; height:20px; width:20px;}<br>
+.todayevent a {background-color: #ffff99; color: red;}<br>
+.eventcontent {font-size: 10px; border-style: outset; border-width: 1px;}
+</td></tr></tbody></table>
+<br>
+<table class="normal" bgcolor="#ffffff" border="0" width="80%">
+<tbody><tr><td colspan="3">
+Active Calendar Classでの設定で生成されるHTMLタグのクラス一覧です。<br>既に、お使いのCSSとのバッティングを避けるため生成されるクラス名は変更できるようになっています。
+</td></tr>
+<tr><td><u>変数の設定</u></td><td><u>HTML クラス</u></td><td><u>HTML タグ</u></td></tr>
+<tr><td class="code">$cssYearTable</td><td>year</td><td>TABLE用のタグ: 年用のカレンダー</td></tr>
+<tr><td class="code">$cssYearTitle</td><td>yearname</td><td>TD用のタグ: 年用のカレンダー タイトル</td></tr>
+<tr><td class="code">$cssYearNav</td><td>yearnavigation</td><td>TD用のタグ: 年用のカレンダー ナビ/td&gt;</td></tr>
+<tr><td class="code">$cssMonthTable</td><td>month</td><td>TABLE用のタグ: 月用のカレンダー</td></tr>
+<tr><td class="code">$cssMonthTitle</td><td>monthname</td><td>TD用のタグ: 月用のカレンダー タイトル</td></tr>
+<tr><td class="code">$cssMonthNav</td><td>monthnavigation</td><td>TD用のタグ: 月用のカレンダー ナビ</td></tr>
+<tr><td class="code">$cssWeekDay</td><td>dayname</td><td>TR用のタグ: カレンダー　ウイークディ</td></tr>
+<tr><td class="code">$cssPicker</td><td>datepicker</td><td>TD用のタグ: 選択プルダウン</td></tr>
+<tr><td class="code">$cssPickerForm</td><td>datepickerform</td><td>FORMタグ: 選択プルダウンフォーム</td></tr>
+<tr><td class="code">$cssPickerMonth</td><td>monthpicker</td><td>SELECTタグ: 月の選択</td></tr>
+<tr><td class="code">$cssPickerYear</td><td>yearpicker</td><td>SELECTタグ: 年の選択</td></tr>
+<tr><td class="code">$cssPickerButton</td><td>pickerbutton</td><td>INPUT (submit) タグ: 送信ボタン</td></tr>
+<tr><td class="code">$cssMonthDay</td><td>monthday</td><td>TD用のタグ: 日付, 当月</td></tr>
+<tr><td class="code">$cssNoMonthDay</td><td>nomonthday</td><td>TD用のタグ: 日付, 当月でない</td></tr>
+<tr><td class="code">$cssToday</td><td>today</td><td>TD用のタグ: 現在日付</td></tr>
+<tr><td class="code">$cssSelecDay</td><td>selectedday</td><td>TD用のタグ: 選択された日</td></tr>
+<tr><td class="code">$cssSunday</td><td>sunday</td><td>TD用のタグ: 全ての日曜</td></tr>
+<tr><td class="code">$cssSaturday</td><td>saturday</td><td>TD用のタグ: 全ての土曜</td></tr>
+<tr><td class="code">$cssEvent</td><td>event</td><td>TD用のタグ: setEvent()にセットされたイベント日。複数のクラスが生成できます（例'meeting'　で会議とか)</td></tr>
+<tr><td class="code">$cssPrefixSelecEvent</td><td>selected</td><td>TD用のタグ: setEvent()にセットされたイベント日で選択されたもの。イベントクラス名に追加できます（例：'selectedevent'選択イベント日)。 複数のクラスが生成できます（例：'selectedmeeting'で選択会議とか)</td></tr>
+<tr><td class="code">$cssPrefixTodayEvent</td><td>today</td><td>TD用のタグ: setEvent()にセットされたイベント日で、現在日付のもの。 イベントクラス名に追加できます（例：'todayevent'当日イベント)。複数のクラスが生成できます（例：'todaymeeting'で当日会議とか) </td></tr>
+<tr><td class="code">$cssEventContent</td><td>eventcontent</td><td>TABLE用のタグ : setEventContent()にセットされたイベント内容。複数のクラスが生成できます（例：'meetingcontent'会議内容とか)</td></tr>
+</tbody></table>
+</ul>
+<p></p>
+<p class="subheader"><a name="quick"></a>クイックインストール</p>
+<p class="normal">1. 初期設定を変更したい場合は <span class="code">activecalendar.php</span>を編集し、設定します。.
+</p><ul class="normal">
+下記の変数を編集します。:
+<li><span class="code">********* 表示される月の名前 *********</span><br>
+<span class="small">[ これは基本設定です。メソッド setMonthNames()の呼び出しでもセットできます。]</span></li>
+<li><span class="code">var $jan</span> = "ここに日本語名を記入 Januaryの替わり";</li>
+<li><span class="code">var $feb</span> = "ここに日本語名を記入 Februaryの替わり";</li>
+<li><span class="code">var $mar</span> = "ここに日本語名を記入 Marchの替わり";</li>
+<li><span class="code">var $apr</span> = "ここに日本語名を記入 Aprilの替わり";</li>
+<li><span class="code">var $may</span> = "ここに日本語名を記入 Mayの替わり";</li> 
+<li><span class="code">var $jun</span> = "ここに日本語名を記入 Juneの替わり";</li>
+<li><span class="code">var $jul</span> = "ここに日本語名を記入 Julyの替わり";</li> 
+<li><span class="code">var $aug</span> = "ここに日本語名を記入 Augustの替わり";</li>
+<li><span class="code">var $sep</span> = "ここに日本語名を記入 Septemberの替わり";</li> 
+<li><span class="code">var $oct</span> = "ここに日本語名を記入 Octoberの替わり";</li>
+<li><span class="code">var $nov</span> = "ここに日本語名を記入 Novemberの替わり";</li> 
+<li><span class="code">var $dec</span> = "ここに日本語名を記入 Decemberの替わり";</li>
+<li><span class="code">******** 表示される曜日の名前 ********</span><br>
+<span class="small">[ これは基本設定です。メソッド setDayNames()の呼び出しでもセットできます。]</span></li>
+<li><span class="code">var $sun</span> = "ここに日本語名を記入 Sundayの替わり";</li>
+<li><span class="code">var $mon</span> = "ここに日本語名を記入 Mondayの替わり";</li>
+<li><span class="code">var $tue</span> = "ここに日本語名を記入 Tuesdayの替わり";</li>
+<li><span class="code">var $wed</span> = "ここに日本語名を記入 Wednesdayの替わり";</li>
+<li><span class="code">var $thu</span> = "ここに日本語名を記入 Thursdayの替わり";</li>
+<li><span class="code">var $fri</span> = "ここに日本語名を記入 Fridayの替わり";</li>
+<li><span class="code">var $sat</span> = "ここに日本語名を記入 Saturdayの替わり";</li>
+<li><span class="code">****** ナビゲーション　コントロール ******</span><br>
+<span class="small">[ これは基本設定です。メソッドenableYearNav()やメソッドenableMonthNav()やメソッド enableDatePicker()の呼び出しでもセットできます。]</span></li>
+<li><span class="code">var $yearNavBack</span> = "前の年へ(イメージリンクでもOKです。例：&lt;img src=\"leftarrow.gif\"&gt;";</li>
+<li><span class="code">var $yearNavForw</span> = "次の年へ(イメージリンクでもOKです。例：&lt;img src=\"rightarrow.gif\"&gt;";</li>
+<li><span class="code">var $monthNavBack</span> = "前の月へ(イメージリンクでもOKです。例：&lt;img src=\"leftarrow.gif\"&gt;";</li>
+<li><span class="code">var $monthNavForw</span> = "次の月へ(イメージリンクでもOKです。例：&lt;img src=\"rightarrow.gif\"&gt;";</li>
+<li><span class="code">var $selBtn</span> = "サブミットボタンの値";</li>
+<li><span class="code">****** 日付リンク ******</span></li>
+<li><span class="code">var $yearID</span> = "リンク用の年の名前、GET値（GET VARIABLE）";</li>
+<li><span class="code">var $monthID</span> = "リンク用の月の名前、GET値（GET VARIABLE）";</li>
+<li><span class="code">var $dayID</span> = "リンク用の日の名前、GET値（GET VARIABLE）";</li>
+<li><span class="code">******** 月カレンダー表示 ********</span></li>
+<li><span class="code">var $monthYearDivider</span> = "タイトルでの、年と月の区切り　例： '/'";</li>
+<li><span class="code">var $startOnSun</span> = "True: とすると日曜開始, False: とすると月曜開始";</li>
+<li><span class="code">var $crSunClass</span> = "True: HTML class の　'sunday' を生成";</li>
+<li><span class="code">var $crSatClass</span> = "True: HTML class の　'saturday' を生成;</li>
+<li><span class="code">******** 年カレンダー表示 ********</span></li>
+<li><span class="code">var $rowCount</span> = "年表示で、一行に表示する月数";<br>
+<span class="small">[ これは基本設定です。 メソッドshowYear()　の呼び出しでもセットできます。]</span></li><br>
+他の部分は、変更しないで下さい。</ul>
+<p></p>
+<p class="normal">2. Active Calendar Class のファイル<span class="code">activecalendar.php</span> をサーバにアップし、include してお使い下さい。
+</p>
+<hr>
+<table bgcolor="#ffffff" border="0" width="100%">
+<tbody><tr>
+<td class="small">This Japanese translation is done by
+H.Fujino(inet|@|zam|dot|att|dot|ne|dot|jp). The original is
+http://www.micronetwork.de/activecalendar/docs/readme.html . I
+appreciate any comments or suggestions in mistranslation.<br>邦
+訳は藤野(メールアドレス：inet|@|zam|dot|att|dot|ne|dot|jp)が行いましたが、原文は　http:
+//www.micronetwork.de/activecalendar/docs/readme.html
+にあります。誤訳についての指摘、改善案を歓迎します。<hr>
+(c) Giorgos Tsiledakis, Crete Greece
+</td>
+</tr>
+</tbody></table>
+<hr>
+</body></html>
