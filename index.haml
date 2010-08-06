@@ -1,0 +1,30 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title Planning Calendar
+    %link{:href => "css/main.css",
+      :rel => "stylesheet",
+      :type => "text/css",
+      :media => "screen",
+      :charset => "utf-8"}
+    %script{:src => "js/jquery.min.js",:type => "text/javascript"}
+    %script{:src => "js/jquery-ui.min.js",:type => "text/javascript"}
+    %script{:src => "js/main.js",:type => "text/javascript"}
+  %body
+    %h1#heading &nbsp;
+    #datebook
+      %ul#timeLinks
+        %li#time00
+          %a{:href => "#"} Midnight
+        - (1..11).each do |i|
+          %li{:id => "time#{"%02d" % i}"}
+            %a{:href => "#"}= "#{i}am"
+        %li#time12
+          %a{:href => "#"} Noon
+        - (1..11).each do |i|
+          %li{:id => "time#{"%02d" % i}"}
+            %a{:href => "#"}= "#{i}pm"
+      %ul#navDays
+        - ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].each_with_index do |name, i|
+          %li{:id => "nav#{name}"}
+            %a= "#{name}"
