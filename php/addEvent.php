@@ -15,7 +15,7 @@ $data = array($_GET['start'],
 // MySQL date format is an 8 digit integer YYYYMMDD
 //
 
-print_r(
+print_r($data);
 	$MySQL
 		->connect($db_user, $db_pass)
 		->setDay($data)
