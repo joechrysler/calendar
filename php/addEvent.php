@@ -1,5 +1,6 @@
 <?php
 require_once 'DataBase.class.php';
+require_once 'config.php';
 
 $MySQL = new DataBase($db_host, $db_name);
 $data = array(
