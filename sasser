@@ -1,0 +1,1 @@
+sass --watch ./sass:. -t compressed
