@@ -26,30 +26,5 @@ abstract class XtacData {
 	}
 
 
-	//## Fetching Operations ###################################
-	abstract public function getUser($inID, $inCol, &$outUser);
-
-	protected function translateValue($inValue) {
-		switch ($inValue) {
-			case '':
-				return null;
-				break;
-			case 'TRUE':
-				return 'Y';
-				break;
-			case 'FALSE':
-				return 'N';
-				break;
-			case 'OFF':
-				return 'N';
-				break;
-			case 'ON':
-				return 'Y';
-				break;
-			default:
-				return $inValue;
-		}
-	}
-
 }
 ?>
